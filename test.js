@@ -10,7 +10,7 @@ chai.use(chaiHttp);
 
 describe("Test API", () => {
   it("should pass", () => {
-    expect(true).to.equal(false);
+    expect(true).to.equal(true);
   });
 
   describe("index", () => {
