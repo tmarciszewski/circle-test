@@ -5,7 +5,8 @@
   "main": "index.js",
   "scripts": {
     "start": "node index.js",
-    "test": "mocha"
+    "test": "mocha",
+    "prettier-watch": "onchange '**/*.js' -- prettier --write {{changed}}"
   },
   "repository": {
     "type": "git",
@@ -24,6 +25,7 @@
     "chai": "^4.2.0",
     "chai-http": "^4.2.0",
     "mocha": "^5.2.0",
+    "prettier": "1.15.3",
     "supertest": "^3.3.0"
   }
 }
