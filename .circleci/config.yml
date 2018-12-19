@@ -1,0 +1,32 @@
+version: 2
+jobs:
+  build:
+    working_directory: ~/app
+    docker:
+      - image: circleci/node:10.4.1
+    steps:
+      - checkout
+      - restore_cache:
+          keys:
+            - npm-dependencies-{{ checksum "package-lock.json" }}
+      - run:
+          name: Install NPM Packages
+          command: npm install
+      - save_cache:
+          paths:
+            - node_modules
+          key: npm-dependencies-{{ checksum "package-lock.json" }}
+      - run:
+          name: Create JUnit directory
+          command: mkdir -p test-results/mocha
+      - run:
+          name: Test Application
+          command: node_modules/mocha/bin/mocha test --reporter mocha-junit-reporter
+          environment:
+            MOCHA_FILE: test-results/mocha/test-results.xml
+          when: always
+      - store_test_results:
+          path: test-results
+      - store_artifacts:
+          path: test-results
+      
